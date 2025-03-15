@@ -114,3 +114,90 @@ function gameObject() {
         },
     };
 }
+{function gameObject() {
+    return {
+        home: {
+            teamName: "Team A",
+            colors: ["Red", "White"],
+            players: {
+                "Player1": { points: 10, shoeSize: 12, rebounds: 5, jerseyNumber: 1 },
+                "Player2": { points: 20, shoeSize: 10, rebounds: 8, jerseyNumber: 2 }
+            }
+        },
+        away: {
+            teamName: "Team B",
+            colors: ["Blue", "Black"],
+            players: {
+                "Player3": { points: 15, shoeSize: 11, rebounds: 6, jerseyNumber: 3 },
+                "Player4": { points: 25, shoeSize: 13, rebounds: 7, jerseyNumber: 4 }
+            }
+        }
+    };
+}
+
+// Retrieve Player Information
+function numPointsScored(playerName) {
+    const game = gameObject();
+    for (const team in game) {
+        if (game[team].players[playerName]) {
+            return game[team].players[playerName].points;
+        }
+    }
+    return null; // Player not found
+}
+
+function shoeSize(playerName) {
+    const game = gameObject();
+    for (const team in game) {
+        if (game[team].players[playerName]) {
+            return game[team].players[playerName].shoeSize;
+        }
+    }
+    return null; // Player not found
+}
+
+// Retrieve Team Information
+function teamColors(teamName) {
+    const game = gameObject();
+    for (const team in game) {
+        if (game[team].teamName === teamName) {
+            return game[team].colors;
+        }
+    }
+    return null; // Team not found
+}
+
+function teamNames() {
+    const game = gameObject();
+    return [game.home.teamName, game.away.teamName];
+}
+
+// Retrieve Player Numbers and Stats
+function playerNumbers(teamName) {
+    const game = gameObject();
+    for (const team in game) {
+        if (game[team].teamName === teamName) {
+            return Object.values(game[team].players).map(player => player.jerseyNumber);
+        }
+    }
+    return null; // Team not found
+}
+
+function playerStats(playerName) {
+    const game = gameObject();
+    for (const team in game) {
+        if (game[team].players[playerName]) {
+            return game[team].players[playerName];
+        }
+    }
+    return null; // Player not found
+}
+
+// Example Usage
+console.log(numPointsScored("Player1")); // Output: 10
+console.log(shoeSize("Player4")); // Output: 13
+console.log(teamColors("Team A")); // Output: ["Red", "White"]
+console.log(teamNames()); // Output: ["Team A", "Team B"]
+console.log(playerNumbers("Team B")); // Output: [3, 4]
+console.log(playerStats("Player3")); // Output: { points: 15, shoeSize: 11, rebounds: 6, jerseyNumber: 3 }
+}
